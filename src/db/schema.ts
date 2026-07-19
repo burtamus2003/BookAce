@@ -30,6 +30,7 @@ export const books = pgTable("books", {
   title: text("title").notNull(),
   author: text("author"),
   isbn: text("isbn"),
+  publishedDate: text("published_date"),
   coverUrl: text("cover_url"),
   notes: text("notes"),
   createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),

@@ -13,14 +13,19 @@ export async function addBook(formData: FormData) {
   const title = String(formData.get("title") ?? "").trim();
   const author = String(formData.get("author") ?? "").trim();
   const isbn = String(formData.get("isbn") ?? "").trim();
+  const publishedDate = String(formData.get("publishedDate") ?? "").trim();
+  const coverUrl = String(formData.get("coverUrl") ?? "").trim();
 
+  if (!isbn) throw new Error("ISBN is required");
   if (!title) throw new Error("Title is required");
 
   await db.insert(books).values({
     userId: session.user.id,
     title,
     author: author || null,
-    isbn: isbn || null,
+    isbn,
+    publishedDate: publishedDate || null,
+    coverUrl: coverUrl || null,
   });
 
   revalidatePath("/dashboard");

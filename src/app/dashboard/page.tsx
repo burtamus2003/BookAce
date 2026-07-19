@@ -1,8 +1,10 @@
+import Image from "next/image";
 import { eq, desc } from "drizzle-orm";
 import { auth } from "@/auth";
 import { db } from "@/db";
 import { books } from "@/db/schema";
-import { addBook, deleteBook } from "./actions";
+import { deleteBook } from "./actions";
+import { AddBookForm } from "./add-book-form";
 import { SignOutButton } from "./sign-out-button";
 
 export default async function DashboardPage() {
@@ -24,15 +26,7 @@ export default async function DashboardPage() {
         <SignOutButton />
       </div>
 
-      <form action={addBook} className="mb-8 flex flex-col gap-3 rounded border p-4">
-        <h2 className="font-medium">Add a book</h2>
-        <input name="title" placeholder="Title" required className="rounded border px-3 py-2" />
-        <input name="author" placeholder="Author" className="rounded border px-3 py-2" />
-        <input name="isbn" placeholder="ISBN" className="rounded border px-3 py-2" />
-        <button type="submit" className="self-start rounded bg-black px-3 py-2 text-white">
-          Add book
-        </button>
-      </form>
+      <AddBookForm />
 
       {myBooks.length === 0 ? (
         <p className="text-sm text-gray-500">No books yet — add your first one above.</p>
@@ -43,11 +37,24 @@ export default async function DashboardPage() {
               key={book.id}
               className="flex items-center justify-between rounded border px-4 py-3"
             >
-              <div>
-                <p className="font-medium">{book.title}</p>
-                <p className="text-sm text-gray-500">
-                  {[book.author, book.isbn].filter(Boolean).join(" · ") || "—"}
-                </p>
+              <div className="flex items-center gap-3">
+                {book.coverUrl && (
+                  <Image
+                    src={book.coverUrl}
+                    alt={book.title}
+                    width={40}
+                    height={60}
+                    unoptimized
+                    className="rounded object-cover"
+                  />
+                )}
+                <div>
+                  <p className="font-medium">{book.title}</p>
+                  <p className="text-sm text-gray-500">
+                    {[book.author, book.publishedDate, book.isbn].filter(Boolean).join(" · ") ||
+                      "—"}
+                  </p>
+                </div>
               </div>
               <form action={deleteBook}>
                 <input type="hidden" name="bookId" value={book.id} />

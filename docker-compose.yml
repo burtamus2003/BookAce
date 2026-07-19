@@ -1,0 +1,35 @@
+services:
+  app:
+    image: ghcr.io/burtamus2003/bookace:latest
+    container_name: bookace-app
+    restart: unless-stopped
+    env_file:
+      - .env.production
+    environment:
+      DATABASE_URL: postgres://bookace:${DB_PASSWORD}@db:5432/bookace
+    depends_on:
+      - db
+    networks:
+      - default
+      - npm_proxy
+
+  db:
+    image: postgres:16-alpine
+    container_name: bookace-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: bookace
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: bookace
+    volumes:
+      - bookace_db_data:/var/lib/postgresql/data
+    networks:
+      - default
+
+volumes:
+  bookace_db_data:
+
+networks:
+  npm_proxy:
+    external: true
+    name: proxy_net

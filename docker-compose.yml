@@ -4,7 +4,7 @@ services:
     container_name: bookace-app
     restart: unless-stopped
     env_file:
-      - .env.production
+      - .env
     environment:
       DATABASE_URL: postgres://bookace:${DB_PASSWORD}@db:5432/bookace
     depends_on:

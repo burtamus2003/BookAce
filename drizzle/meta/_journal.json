@@ -15,6 +15,27 @@
       "when": 1784502242640,
       "tag": "0001_cuddly_blue_marvel",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1784503165966,
+      "tag": "0002_rare_logan",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1784504332729,
+      "tag": "0003_cool_ted_forrester",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1784507609855,
+      "tag": "0004_peaceful_ser_duncan",
+      "breakpoints": true
     }
   ]
 }

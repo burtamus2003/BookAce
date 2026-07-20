@@ -1,12 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 
-export default function LoginPage() {
+function LoginForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const justReset = searchParams.get("reset") === "1";
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -37,6 +39,11 @@ export default function LoginPage() {
   return (
     <main className="mx-auto flex min-h-screen max-w-sm flex-col justify-center gap-6 px-4">
       <h1 className="text-2xl font-semibold">Log in to BookAce</h1>
+      {justReset && (
+        <p className="text-sm text-green-700">
+          Password updated — log in with your new password.
+        </p>
+      )}
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <input
           type="email"
@@ -63,12 +70,22 @@ export default function LoginPage() {
           {submitting ? "Logging in..." : "Log in"}
         </button>
       </form>
-      <p className="text-sm">
-        No account?{" "}
+      <p className="flex justify-between text-sm">
         <Link href="/register" className="underline">
-          Register
+          No account? Register
+        </Link>
+        <Link href="/forgot-password" className="underline">
+          Forgot password?
         </Link>
       </p>
     </main>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense>
+      <LoginForm />
+    </Suspense>
   );
 }

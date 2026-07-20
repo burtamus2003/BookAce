@@ -10,7 +10,7 @@ Running list of things to look into or build. Add new items as they come up.
 - [ ] Gmail won't show the BIMI logo without a paid Verified Mark Certificate, which requires a registered trademark — revisit if that's worth pursuing
 - [ ] SEO pass: metadata/OpenGraph tags per page, sitemap.xml, structured data, check robots.txt still makes sense once public-facing pages exist
 - [ ] Per-user color palettes — replace the current stark black/white with something more modern, and let each user pick/customize their own. Needs: a profile/settings page to store the preference per user (schema + UI), and a palette picker. Reference for presets: [Figma's website color schemes library](https://www.figma.com/resource-library/website-color-schemes/) — 53 named schemes across 5 moods (Minimal & Neutral, Warm, Cool, Vibrant & Bold, Modern); worth curating a handful of these (e.g. from the "Modern" or "Minimal and Neutral" groups) as starter presets rather than building a full custom color picker
-- [ ] Dashboard: "Random book" discovery section pulling from all members' libraries, visually separated so it's clearly not part of the library owner's own collection — needs decisions on opt-in/privacy (should users be able to exclude their books?) before building
+- [ ] Dashboard: "Random book" discovery section pulling from all members' libraries, visually separated so it's clearly not part of the library owner's own collection. Not a privacy concern — the post won't show who owns the book, just the book itself — so no opt-in/exclusion mechanism needed
 - [ ] "Buy This Book" link on the random book post using an Amazon affiliate tag — needs the actual Associates tag/ID once we get there
 
 ## Done

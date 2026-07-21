@@ -10,7 +10,7 @@ export default async function ResetPasswordPage({
 
   if (!token) {
     return (
-      <main className="mx-auto flex min-h-screen max-w-sm flex-col justify-center gap-6 px-4 text-center">
+      <main className="mx-auto flex w-full min-h-screen max-w-sm flex-col justify-center gap-6 px-4 text-center">
         <p className="text-sm">This reset link is missing its token.</p>
         <Link href="/forgot-password" className="text-sm underline">
           Request a new reset link
@@ -20,7 +20,7 @@ export default async function ResetPasswordPage({
   }
 
   return (
-    <main className="mx-auto flex min-h-screen max-w-sm flex-col justify-center gap-6 px-4">
+    <main className="mx-auto flex w-full min-h-screen max-w-sm flex-col justify-center gap-6 px-4">
       <h1 className="text-2xl font-semibold">Set a new password</h1>
 
       <form action={resetPasswordWithToken} className="flex flex-col gap-4">

@@ -37,7 +37,7 @@ function LoginForm() {
   }
 
   return (
-    <main className="mx-auto flex min-h-screen max-w-sm flex-col justify-center gap-6 px-4">
+    <main className="mx-auto flex w-full min-h-screen max-w-sm flex-col justify-center gap-6 px-4">
       <h1 className="text-2xl font-semibold">Log in to BookAce</h1>
       {justReset && (
         <p className="text-sm text-green-700">

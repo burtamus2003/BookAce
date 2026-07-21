@@ -12,6 +12,9 @@ const ENTRIES = [
       "Added Discover: a daily trending book pick, open to everyone whether you've signed up or not",
       "Added a \"Buy on Amazon\" link on Discover picks, with the required affiliate disclosure",
       "Added cover uploads — set your own picture for any book from its details panel",
+      "Fixed sign-out sending you to the wrong address instead of back to the site",
+      "Fixed the login, register, and password pages looking cramped, with links overlapping each other",
+      "Fixed the profile page's color inputs not updating right away when you picked a different preset",
     ],
   },
   {

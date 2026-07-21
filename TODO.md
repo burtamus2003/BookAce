@@ -24,3 +24,4 @@ Open items are tracked as [GitHub Issues](https://github.com/burtamus2003/BookAc
 - [x] Confirmed burt@inthometech.com as the production admin — no second account needed (closes #2)
 - [x] Fixed sign-out redirecting to localhost in production — Auth.js was guessing the host from request headers since AUTH_URL wasn't set behind the reverse proxy; documented the required env var
 - [x] Fixed the "No account? Register" / "Forgot password?" links running together on login (and the same layout bug on register/forgot-password/reset-password): `mx-auto` on a flex item without an explicit width makes browsers use the auto-margins for centering instead of stretching to fill available space, so the box was shrinking to fit its content instead of reaching its `max-w-sm` cap — fixed by adding `w-full`
+- [x] Verified SPF/DKIM/DMARC all pass on a real delivered email's headers, not just DNS lookups (closes #1)

@@ -4,7 +4,7 @@ import { auth } from "@/auth";
 import { db } from "@/db";
 import { users, books } from "@/db/schema";
 import { AppShell } from "@/components/app-shell";
-import { getUserPaletteKey } from "@/lib/get-user-palette";
+import { getUserPalette, resolvePaletteColors } from "@/lib/get-user-palette";
 import { resetPassword } from "./actions";
 import { DeleteUserButton } from "./delete-user-button";
 import { ToggleAdminButton } from "./toggle-admin-button";
@@ -19,7 +19,7 @@ export default async function AdminPage() {
     return null;
   }
 
-  const [rows, paletteKey] = await Promise.all([
+  const [rows, palette] = await Promise.all([
     db
       .select({
         id: users.id,
@@ -33,11 +33,11 @@ export default async function AdminPage() {
       .leftJoin(books, eq(books.userId, users.id))
       .groupBy(users.id)
       .orderBy(users.createdAt),
-    getUserPaletteKey(session.user.id),
+    getUserPalette(session.user.id),
   ]);
 
   return (
-    <AppShell session={session} paletteKey={paletteKey}>
+    <AppShell session={session} paletteColors={resolvePaletteColors(palette)}>
       <main className="mx-auto max-w-4xl px-4 py-10">
         <h1 className="mb-8 text-2xl font-semibold">Admin</h1>
 

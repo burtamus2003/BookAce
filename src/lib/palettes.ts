@@ -1,14 +1,24 @@
+export interface PaletteColors {
+  background: string;
+  foreground: string;
+  accent: string;
+  accentForeground: string;
+}
+
 export interface Palette {
   key: string;
   name: string;
   /** null means "use the system light/dark default" — no CSS override applied. */
-  colors: {
-    background: string;
-    foreground: string;
-    accent: string;
-    accentForeground: string;
-  } | null;
+  colors: PaletteColors | null;
 }
+
+/** Fallback used to seed the customize form when there's no preset with real colors to start from. */
+export const CLASSIC_FALLBACK_COLORS: PaletteColors = {
+  background: "#ffffff",
+  foreground: "#171717",
+  accent: "#171717",
+  accentForeground: "#ffffff",
+};
 
 export const PALETTES: Palette[] = [
   { key: "classic", name: "Classic (default)", colors: null },

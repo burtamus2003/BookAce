@@ -1,6 +1,6 @@
 import { auth } from "@/auth";
 import { AppShell } from "@/components/app-shell";
-import { getUserPaletteKey } from "@/lib/get-user-palette";
+import { getUserPalette, resolvePaletteColors } from "@/lib/get-user-palette";
 
 const FAQS = [
   {
@@ -54,10 +54,10 @@ const FAQS = [
 
 export default async function FaqPage() {
   const session = await auth();
-  const paletteKey = await getUserPaletteKey(session?.user?.id);
+  const palette = await getUserPalette(session?.user?.id);
 
   return (
-    <AppShell session={session} paletteKey={paletteKey}>
+    <AppShell session={session} paletteColors={resolvePaletteColors(palette)}>
       <main className="mx-auto max-w-2xl px-4 py-10">
         <h1 className="mb-8 text-2xl font-semibold">Frequently asked questions</h1>
         <div className="flex flex-col gap-6">

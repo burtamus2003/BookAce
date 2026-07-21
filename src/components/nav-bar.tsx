@@ -13,6 +13,7 @@ export function NavBar({ session }: { session: Session | null }) {
           {session ? (
             <>
               <Link href="/dashboard">Library</Link>
+              <Link href="/discover">Discover</Link>
               <Link href="/faq">FAQ</Link>
               <Link href="/changelog">Changelog</Link>
               <Link href="/privacy">Privacy</Link>
@@ -22,6 +23,7 @@ export function NavBar({ session }: { session: Session | null }) {
             </>
           ) : (
             <>
+              <Link href="/discover">Discover</Link>
               <Link href="/faq">FAQ</Link>
               <Link href="/changelog">Changelog</Link>
               <Link href="/privacy">Privacy</Link>

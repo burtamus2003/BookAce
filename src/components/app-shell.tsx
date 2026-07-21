@@ -1,25 +1,24 @@
 import type { Session } from "next-auth";
 import type { CSSProperties, ReactNode } from "react";
-import { getPalette } from "@/lib/palettes";
+import type { PaletteColors } from "@/lib/palettes";
 import { NavBar } from "./nav-bar";
 
 export function AppShell({
   session,
-  paletteKey,
+  paletteColors,
   children,
 }: {
   session: Session | null;
-  paletteKey: string;
+  /** Fully-resolved colors to apply, or null to use the system light/dark default (no override). */
+  paletteColors: PaletteColors | null;
   children: ReactNode;
 }) {
-  const palette = getPalette(paletteKey);
-
-  const style: CSSProperties | undefined = palette.colors
+  const style: CSSProperties | undefined = paletteColors
     ? ({
-        "--background": palette.colors.background,
-        "--foreground": palette.colors.foreground,
-        "--accent": palette.colors.accent,
-        "--accent-foreground": palette.colors.accentForeground,
+        "--background": paletteColors.background,
+        "--foreground": paletteColors.foreground,
+        "--accent": paletteColors.accent,
+        "--accent-foreground": paletteColors.accentForeground,
       } as CSSProperties)
     : undefined;
 

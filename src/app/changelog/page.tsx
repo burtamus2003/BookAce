@@ -1,6 +1,6 @@
 import { auth } from "@/auth";
 import { AppShell } from "@/components/app-shell";
-import { getUserPaletteKey } from "@/lib/get-user-palette";
+import { getUserPalette, resolvePaletteColors } from "@/lib/get-user-palette";
 
 const ENTRIES = [
   {
@@ -21,10 +21,10 @@ const ENTRIES = [
 
 export default async function ChangelogPage() {
   const session = await auth();
-  const paletteKey = await getUserPaletteKey(session?.user?.id);
+  const palette = await getUserPalette(session?.user?.id);
 
   return (
-    <AppShell session={session} paletteKey={paletteKey}>
+    <AppShell session={session} paletteColors={resolvePaletteColors(palette)}>
       <main className="mx-auto max-w-2xl px-4 py-10">
         <h1 className="mb-2 text-2xl font-semibold">Changelog</h1>
         <p className="mb-8 text-sm text-gray-500">

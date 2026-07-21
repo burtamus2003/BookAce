@@ -1,13 +1,13 @@
 import { auth } from "@/auth";
 import { AppShell } from "@/components/app-shell";
-import { getUserPaletteKey } from "@/lib/get-user-palette";
+import { getUserPalette, resolvePaletteColors } from "@/lib/get-user-palette";
 
 export default async function PrivacyPage() {
   const session = await auth();
-  const paletteKey = await getUserPaletteKey(session?.user?.id);
+  const palette = await getUserPalette(session?.user?.id);
 
   return (
-    <AppShell session={session} paletteKey={paletteKey}>
+    <AppShell session={session} paletteColors={resolvePaletteColors(palette)}>
       <main className="mx-auto max-w-2xl px-4 py-10">
         <h1 className="mb-2 text-2xl font-semibold">Privacy</h1>
         <p className="mb-8 text-sm text-gray-500">
@@ -56,6 +56,16 @@ export default async function PrivacyPage() {
               they don&apos;t receive your name, email, or anything else about you. We don&apos;t
               sell or share your data with anyone else, and we don&apos;t run analytics or
               tracking on this site.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="font-medium">Amazon links</h2>
+            <p className="mt-1 text-gray-500">
+              The Discover page links to Amazon using our Associates affiliate tag. As an Amazon
+              Associate, BookAce earns from qualifying purchases, which goes toward hosting and
+              building the site. Amazon handles the purchase itself — we never see your payment
+              or shipping information.
             </p>
           </section>
 

@@ -6,6 +6,8 @@ import { auth } from "@/auth";
 import { db } from "@/db";
 import { books } from "@/db/schema";
 import { sendLoanReminderEmail } from "@/lib/email";
+import { detectImageType } from "@/lib/image-type";
+import { saveCoverFile, MAX_COVER_BYTES } from "@/lib/cover-storage";
 import { CONDITIONS, FORMATS, READING_STATUSES } from "./book-constants";
 
 export async function addBook(formData: FormData) {
@@ -73,6 +75,38 @@ export async function updateBookDetails(formData: FormData) {
         : "unread",
       rating: rating >= 1 && rating <= 5 ? rating : null,
     })
+    .where(and(eq(books.id, bookId), eq(books.userId, session.user.id)));
+
+  revalidatePath("/dashboard");
+}
+
+export async function uploadBookCover(formData: FormData) {
+  const session = await auth();
+  if (!session?.user?.id) throw new Error("Not authenticated");
+
+  const bookId = String(formData.get("bookId") ?? "");
+  if (!bookId) return;
+
+  const file = formData.get("file");
+  if (!(file instanceof File)) throw new Error("No file provided");
+  if (file.size === 0) throw new Error("No file provided");
+  if (file.size > MAX_COVER_BYTES) throw new Error("Image must be 5MB or smaller");
+
+  const bytes = Buffer.from(await file.arrayBuffer());
+  const detected = detectImageType(bytes);
+  if (!detected) throw new Error("File must be a JPEG, PNG, or WebP image");
+
+  const [book] = await db
+    .select({ id: books.id })
+    .from(books)
+    .where(and(eq(books.id, bookId), eq(books.userId, session.user.id)));
+  if (!book) throw new Error("Book not found");
+
+  const filename = await saveCoverFile(bytes, detected.ext);
+
+  await db
+    .update(books)
+    .set({ coverUrl: `/api/uploads/${filename}` })
     .where(and(eq(books.id, bookId), eq(books.userId, session.user.id)));
 
   revalidatePath("/dashboard");

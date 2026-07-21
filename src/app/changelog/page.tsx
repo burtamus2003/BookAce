@@ -10,6 +10,8 @@ const ENTRIES = [
       "Added a top navigation bar, plus FAQ, Changelog, and Privacy pages",
       "Added per-user color palettes — pick one of several themes, or customize your own colors from your profile page",
       "Added Discover: a daily trending book pick, open to everyone whether you've signed up or not",
+      "Added a \"Buy on Amazon\" link on Discover picks, with the required affiliate disclosure",
+      "Added cover uploads — set your own picture for any book from its details panel",
     ],
   },
   {

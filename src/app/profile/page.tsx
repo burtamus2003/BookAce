@@ -24,6 +24,7 @@ export default async function ProfilePage() {
         </p>
 
         <PalettePicker
+          key={`${palette.presetKey}-${isCustom ? Object.values(currentColors).join(",") : "preset"}`}
           currentKey={isCustom ? null : palette.presetKey}
           currentColors={currentColors}
         />

@@ -9,6 +9,7 @@ import {
   deleteBook,
   sendLoanReminder,
   updateBookDetails,
+  uploadBookCover,
 } from "./actions";
 import { AddBookForm } from "./add-book-form";
 import {
@@ -178,16 +179,23 @@ function BookDetailsPanel({ book, onClose }: { book: Book; onClose: () => void }
       <div className="relative flex h-full w-full max-w-sm flex-col gap-6 overflow-y-auto border-l bg-background p-6">
         <div className="flex items-start justify-between gap-4">
           <div className="flex gap-3">
-            {book.coverUrl && (
-              <Image
-                src={book.coverUrl}
-                alt={book.title}
-                width={64}
-                height={96}
-                unoptimized
-                className="rounded object-cover"
-              />
-            )}
+            <div className="flex flex-col items-center gap-1">
+              {book.coverUrl ? (
+                <Image
+                  src={book.coverUrl}
+                  alt={book.title}
+                  width={64}
+                  height={96}
+                  unoptimized
+                  className="rounded object-cover"
+                />
+              ) : (
+                <div className="flex h-24 w-16 items-center justify-center rounded bg-gray-100 text-[10px] text-gray-400">
+                  No cover
+                </div>
+              )}
+              <CoverUploadButton bookId={book.id} />
+            </div>
             <div>
               <h2 className="font-semibold">{book.title}</h2>
               <p className="text-sm text-gray-500">
@@ -221,6 +229,45 @@ function BookDetailsPanel({ book, onClose }: { book: Book; onClose: () => void }
           </button>
         </form>
       </div>
+    </div>
+  );
+}
+
+function CoverUploadButton({ bookId }: { bookId: string }) {
+  const [isPending, startTransition] = useTransition();
+  const [error, setError] = useState<string | null>(null);
+
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    e.target.value = "";
+    if (!file) return;
+
+    setError(null);
+    startTransition(async () => {
+      const formData = new FormData();
+      formData.set("bookId", bookId);
+      formData.set("file", file);
+      try {
+        await uploadBookCover(formData);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : "Upload failed");
+      }
+    });
+  }
+
+  return (
+    <div className="flex flex-col items-center gap-1">
+      <label className="cursor-pointer text-xs underline">
+        {isPending ? "Uploading..." : "Change cover"}
+        <input
+          type="file"
+          accept="image/jpeg,image/png,image/webp"
+          onChange={handleChange}
+          disabled={isPending}
+          className="hidden"
+        />
+      </label>
+      {error && <span className="max-w-[80px] text-center text-xs text-red-600">{error}</span>}
     </div>
   );
 }

@@ -14,6 +14,11 @@ const FAQS = [
       "We check multiple sources, but coverage still isn't perfect, especially for older or regional editions. You can always fill in the title and author manually.",
   },
   {
+    question: "What if my book has no cover, or the wrong one?",
+    answer:
+      'Click "Change cover" in the book\'s details panel to upload your own — JPEG, PNG, or WebP, up to 5MB. Only you can ever see it, same as the rest of your library.',
+  },
+  {
     question: "Can I track a book's condition, edition, or whether it's signed?",
     answer:
       "Yes — click into any book in your library to add a condition, format, edition/printing, signed-copy flag, reading status, and your own rating.",

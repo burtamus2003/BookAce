@@ -5,7 +5,12 @@ import { getUserPalette, resolvePaletteColors } from "@/lib/get-user-palette";
 const ENTRIES = [
   {
     date: "2026-07-20",
-    items: ["Improved ISBN lookup with a second data source for better coverage of hard-to-find editions"],
+    items: [
+      "Improved ISBN lookup with a second data source for better coverage of hard-to-find editions",
+      "Added a top navigation bar, plus FAQ, Changelog, and Privacy pages",
+      "Added per-user color palettes — pick one of several themes, or customize your own colors from your profile page",
+      "Added Discover: a daily trending book pick, open to everyone whether you've signed up or not",
+    ],
   },
   {
     date: "2026-07-19",

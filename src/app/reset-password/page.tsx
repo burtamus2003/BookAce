@@ -34,7 +34,7 @@ export default async function ResetPasswordPage({
           className="rounded border px-3 py-2"
         />
         {error && <p className="text-sm text-red-600">Password must be at least 8 characters.</p>}
-        <button type="submit" className="rounded bg-foreground px-3 py-2 text-background">
+        <button type="submit" className="rounded bg-accent px-3 py-2 text-accent-foreground">
           Set new password
         </button>
       </form>

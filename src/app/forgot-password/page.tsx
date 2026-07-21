@@ -26,7 +26,7 @@ export default async function ForgotPasswordPage({
             placeholder="Email"
             className="rounded border px-3 py-2"
           />
-          <button type="submit" className="rounded bg-foreground px-3 py-2 text-background">
+          <button type="submit" className="rounded bg-accent px-3 py-2 text-accent-foreground">
             Send reset link
           </button>
         </form>

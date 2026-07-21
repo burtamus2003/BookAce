@@ -1,16 +1,6 @@
 # BookAce TODO
 
-Running list of things to look into or build. Add new items as they come up.
-
-## Open
-
-- [ ] Verify the Gmail spam-folder email's headers ("Show original") to confirm SPF/DKIM/DMARC are actually passing now
-- [ ] Register `burtamus@gmail.com` on production and decide if it should also be an admin
-- [ ] Gmail won't show the BIMI logo without a paid Verified Mark Certificate, which requires a registered trademark — revisit if that's worth pursuing
-- [ ] SEO pass: metadata/OpenGraph tags per page, sitemap.xml, structured data, check robots.txt still makes sense once public-facing pages exist
-- [ ] Per-user color palettes — replace the current stark black/white with something more modern, and let each user pick/customize their own. Needs: a profile/settings page to store the preference per user (schema + UI), and a palette picker. Reference for presets: [Figma's website color schemes library](https://www.figma.com/resource-library/website-color-schemes/) — 53 named schemes across 5 moods (Minimal & Neutral, Warm, Cool, Vibrant & Bold, Modern); worth curating a handful of these (e.g. from the "Modern" or "Minimal and Neutral" groups) as starter presets rather than building a full custom color picker
-- [ ] Dashboard: "Random book" discovery section pulling from all members' libraries, visually separated so it's clearly not part of the library owner's own collection. Not a privacy concern — the post won't show who owns the book, just the book itself — so no opt-in/exclusion mechanism needed
-- [ ] "Buy This Book" link on the random book post using an Amazon affiliate tag — needs the actual Associates tag/ID once we get there
+Open items are tracked as [GitHub Issues](https://github.com/burtamus2003/BookAce/issues) now, not here. This file just keeps a log of what's already shipped.
 
 ## Done
 
@@ -22,3 +12,5 @@ Running list of things to look into or build. Add new items as they come up.
 - [x] Favicon and browser tab title rebrand
 - [x] BIMI-compliant logo SVG + DNS record
 - [x] ISBN lookup: added Google Books as a fallback when Open Library comes up empty (couldn't test live against Google's API in the dev sandbox — worth a real-world check once deployed)
+- [x] Top nav menu (shown when logged in and on public pages), with FAQ and Changelog pages
+- [x] Per-user color palettes: 6 presets (Classic default + 5 curated, contrast-checked options), a profile page with a live picker, applied everywhere except the landing page (closes #5)

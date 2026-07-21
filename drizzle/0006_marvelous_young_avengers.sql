@@ -1,0 +1,1 @@
+ALTER TABLE "users" ADD COLUMN "color_palette" text DEFAULT 'classic' NOT NULL;

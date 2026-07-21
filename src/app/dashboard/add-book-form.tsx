@@ -174,7 +174,7 @@ export function AddBookForm({ onAdded }: { onAdded: () => void }) {
 
       <button
         type="submit"
-        className="self-start rounded bg-foreground px-4 py-2 text-sm text-background"
+        className="self-start rounded bg-accent px-4 py-2 text-sm text-accent-foreground"
       >
         Add book
       </button>

@@ -109,7 +109,7 @@ export function BookList({ books }: { books: Book[] }) {
         <button
           type="button"
           onClick={() => setIsAdding(true)}
-          className="rounded bg-foreground px-4 py-2 text-sm font-medium text-background"
+          className="rounded bg-accent px-4 py-2 text-sm font-medium text-accent-foreground"
         >
           + Add a book
         </button>
@@ -126,7 +126,7 @@ export function BookList({ books }: { books: Book[] }) {
               key={book.id}
               type="button"
               onClick={() => setSelectedId(book.id)}
-              className="flex flex-col gap-2 rounded border p-3 text-left hover:bg-foreground/5"
+              className="flex flex-col gap-2 rounded border p-3 text-left hover:bg-accent/5"
             >
               <div className="aspect-[2/3] w-full overflow-hidden rounded bg-gray-100">
                 {book.coverUrl ? (
@@ -323,7 +323,7 @@ function LoanForm({ bookId }: { bookId: string }) {
         placeholder="Borrower's email (optional)"
         className="rounded border px-3 py-2"
       />
-      <button type="submit" className="self-start rounded bg-foreground px-3 py-2 text-sm text-background">
+      <button type="submit" className="self-start rounded bg-accent px-3 py-2 text-sm text-accent-foreground">
         Mark as loaned
       </button>
     </form>

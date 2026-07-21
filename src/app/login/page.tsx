@@ -65,7 +65,7 @@ function LoginForm() {
         <button
           type="submit"
           disabled={submitting}
-          className="rounded bg-foreground px-3 py-2 text-background disabled:opacity-50"
+          className="rounded bg-accent px-3 py-2 text-accent-foreground disabled:opacity-50"
         >
           {submitting ? "Logging in..." : "Log in"}
         </button>

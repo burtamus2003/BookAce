@@ -4,6 +4,8 @@ Open items are tracked as [GitHub Issues](https://github.com/burtamus2003/BookAc
 
 ## Done
 
+- [x] iPhone HEIC cover uploads: detect HEIC by magic bytes and convert to JPEG server-side with `heic-convert` (pure-JS, no native deps — the bundled sharp/libvips has no HEVC decoder, only AV1/AVIF, so it can't read iPhone HEIC). Verified end-to-end against a real `sips`-generated HEIC. Also fixed the cover-upload action masking every validation failure (bad type, too large) as a generic "internal server error" — Next redacts thrown Server Action errors in production, so these now return friendly messages instead of throwing
+- [x] Fixed the nav bar overflowing the viewport on narrow phones (single non-wrapping flex row of ~429px) causing horizontal scroll and the background stopping short — let the header/nav links wrap
 - [x] Camera-based ISBN barcode scanning in the "Add a book" form, using `@zxing/browser` (chosen over the native `BarcodeDetector` API since Safari/iOS lacks support and maintaining two code paths wasn't worth it) — scans EAN-13/UPC-A, fills the ISBN field, and auto-triggers the existing lookup; gracefully handles permission-denied/no-camera and always releases the camera on cancel/unmount (closes #10)
 - [x] Admin portal: fixed white-on-white table headers
 - [x] Admin portal: role toggle (promote/demote admins)

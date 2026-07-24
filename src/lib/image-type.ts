@@ -30,3 +30,15 @@ export function detectImageType(bytes: Uint8Array): { ext: string; contentType: 
   const signature = SIGNATURES.find((s) => s.matches(bytes));
   return signature ? { ext: signature.ext, contentType: signature.contentType } : null;
 }
+
+// HEIC files are ISOBMFF containers: bytes 4–7 are "ftyp", 8–11 are the major brand.
+// iPhone photos use one of these HEVC-in-HEIF brands (AVIF's "avif"/"avis" are deliberately excluded).
+const HEIC_BRANDS = new Set(["heic", "heix", "heim", "heis", "hevc", "hevx", "mif1", "msf1"]);
+
+/** True if the bytes look like an Apple HEIC photo (needs converting before we can store it). */
+export function isHeic(bytes: Uint8Array): boolean {
+  if (bytes.length < 12) return false;
+  if (bytes[4] !== 0x66 || bytes[5] !== 0x74 || bytes[6] !== 0x79 || bytes[7] !== 0x70) return false;
+  const brand = String.fromCharCode(bytes[8], bytes[9], bytes[10], bytes[11]);
+  return HEIC_BRANDS.has(brand);
+}

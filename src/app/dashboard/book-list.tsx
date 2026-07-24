@@ -248,9 +248,10 @@ function CoverUploadButton({ bookId }: { bookId: string }) {
       formData.set("bookId", bookId);
       formData.set("file", file);
       try {
-        await uploadBookCover(formData);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : "Upload failed");
+        const result = await uploadBookCover(formData);
+        if (result?.error) setError(result.error);
+      } catch {
+        setError("Upload failed — please try again.");
       }
     });
   }
@@ -261,7 +262,7 @@ function CoverUploadButton({ bookId }: { bookId: string }) {
         {isPending ? "Uploading..." : "Change cover"}
         <input
           type="file"
-          accept="image/jpeg,image/png,image/webp"
+          accept="image/jpeg,image/png,image/webp,image/heic,image/heif"
           onChange={handleChange}
           disabled={isPending}
           className="hidden"

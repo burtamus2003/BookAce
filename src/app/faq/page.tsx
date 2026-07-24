@@ -21,7 +21,7 @@ const FAQS = [
   {
     question: "What if my book has no cover, or the wrong one?",
     answer:
-      'Click "Change cover" in the book\'s details panel to upload your own — JPEG, PNG, or WebP, up to 5MB. Only you can ever see it, same as the rest of your library.',
+      'Click "Change cover" in the book\'s details panel to upload your own — JPEG, PNG, WebP, or an iPhone HEIC photo (converted to JPEG automatically), up to 5MB. Only you can ever see it, same as the rest of your library.',
   },
   {
     question: "Can I track a book's condition, edition, or whether it's signed?",

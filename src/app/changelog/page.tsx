@@ -7,6 +7,9 @@ const ENTRIES = [
     date: "2026-07-23",
     items: [
       "Added camera-based barcode scanning to the \"Add a book\" form — scan a book's barcode instead of typing the ISBN",
+      "iPhone photos (HEIC) now work as book covers — they're converted to JPEG automatically instead of failing",
+      "Fixed cover-upload problems (wrong file type, too large) showing a generic \"internal server error\" instead of a clear message",
+      "Fixed the top navigation overflowing the screen on phones, which caused sideways scrolling",
     ],
   },
   {

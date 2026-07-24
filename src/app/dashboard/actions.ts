@@ -6,7 +6,7 @@ import { auth } from "@/auth";
 import { db } from "@/db";
 import { books } from "@/db/schema";
 import { sendLoanReminderEmail } from "@/lib/email";
-import { detectImageType } from "@/lib/image-type";
+import { detectImageType, isHeic } from "@/lib/image-type";
 import { saveCoverFile, MAX_COVER_BYTES } from "@/lib/cover-storage";
 import { CONDITIONS, FORMATS, READING_STATUSES } from "./book-constants";
 
@@ -80,21 +80,37 @@ export async function updateBookDetails(formData: FormData) {
   revalidatePath("/dashboard");
 }
 
-export async function uploadBookCover(formData: FormData) {
+export async function uploadBookCover(
+  formData: FormData,
+): Promise<{ error: string } | void> {
   const session = await auth();
   if (!session?.user?.id) throw new Error("Not authenticated");
 
   const bookId = String(formData.get("bookId") ?? "");
   if (!bookId) return;
 
+  // Expected, user-correctable problems are returned as messages, not thrown: Next masks
+  // thrown Server Action errors in production as a generic "internal server error", so the
+  // real reason would never reach the user.
   const file = formData.get("file");
-  if (!(file instanceof File)) throw new Error("No file provided");
-  if (file.size === 0) throw new Error("No file provided");
-  if (file.size > MAX_COVER_BYTES) throw new Error("Image must be 5MB or smaller");
+  if (!(file instanceof File) || file.size === 0) return { error: "No file provided" };
+  if (file.size > MAX_COVER_BYTES) return { error: "Image must be 5MB or smaller" };
 
-  const bytes = Buffer.from(await file.arrayBuffer());
+  let bytes = Buffer.from(await file.arrayBuffer());
+
+  // iPhones capture HEIC by default; convert to JPEG so the rest of the pipeline — and any
+  // browser displaying the cover later — can handle it.
+  if (isHeic(bytes)) {
+    try {
+      const convert = (await import("heic-convert")).default;
+      bytes = Buffer.from(await convert({ buffer: bytes, format: "JPEG", quality: 0.9 }));
+    } catch {
+      return { error: "Couldn't process that iPhone photo — try a JPEG or PNG instead." };
+    }
+  }
+
   const detected = detectImageType(bytes);
-  if (!detected) throw new Error("File must be a JPEG, PNG, or WebP image");
+  if (!detected) return { error: "File must be a JPEG, PNG, WebP, or HEIC image" };
 
   const [book] = await db
     .select({ id: books.id })

@@ -5,11 +5,11 @@ import { SignOutButton } from "./sign-out-button";
 export function NavBar({ session }: { session: Session | null }) {
   return (
     <header className="border-b">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3">
+      <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-x-4 gap-y-2 px-4 py-3">
         <Link href={session ? "/dashboard" : "/"} className="font-semibold">
           BookAce
         </Link>
-        <nav className="flex items-center gap-4 text-sm">
+        <nav className="flex flex-wrap items-center justify-end gap-x-4 gap-y-2 text-sm">
           {session ? (
             <>
               <Link href="/dashboard">Library</Link>

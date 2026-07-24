@@ -4,6 +4,7 @@ Open items are tracked as [GitHub Issues](https://github.com/burtamus2003/BookAc
 
 ## Done
 
+- [x] Camera-based ISBN barcode scanning in the "Add a book" form, using `@zxing/browser` (chosen over the native `BarcodeDetector` API since Safari/iOS lacks support and maintaining two code paths wasn't worth it) — scans EAN-13/UPC-A, fills the ISBN field, and auto-triggers the existing lookup; gracefully handles permission-denied/no-camera and always releases the camera on cancel/unmount (closes #10)
 - [x] Admin portal: fixed white-on-white table headers
 - [x] Admin portal: role toggle (promote/demote admins)
 - [x] Forgot/reset password flow via Resend

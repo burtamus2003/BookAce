@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { addBook } from "./actions";
+import { BarcodeScanner } from "./barcode-scanner";
 import { CONDITIONS, FORMATS } from "./book-constants";
 import { StarRating } from "./star-rating";
 
@@ -19,9 +20,10 @@ export function AddBookForm({ onAdded }: { onAdded: () => void }) {
   const [rating, setRating] = useState(0);
   const [looking, setLooking] = useState(false);
   const [lookupError, setLookupError] = useState<string | null>(null);
+  const [scanning, setScanning] = useState(false);
 
-  async function handleLookup() {
-    const trimmed = isbn.trim();
+  async function lookupIsbn(value: string) {
+    const trimmed = value.trim();
     if (!trimmed) return;
 
     setLooking(true);
@@ -45,6 +47,16 @@ export function AddBookForm({ onAdded }: { onAdded: () => void }) {
     } finally {
       setLooking(false);
     }
+  }
+
+  function handleLookup() {
+    lookupIsbn(isbn);
+  }
+
+  function handleScan(scanned: string) {
+    setScanning(false);
+    setIsbn(scanned);
+    lookupIsbn(scanned);
   }
 
   function handleSubmit() {
@@ -82,7 +94,16 @@ export function AddBookForm({ onAdded }: { onAdded: () => void }) {
         >
           {looking ? "Looking up..." : "Look up"}
         </button>
+        <button
+          type="button"
+          onClick={() => setScanning(true)}
+          disabled={scanning}
+          className="rounded border px-3 py-2 disabled:opacity-50"
+        >
+          Scan barcode
+        </button>
       </div>
+      {scanning && <BarcodeScanner onScan={handleScan} onClose={() => setScanning(false)} />}
       {lookupError && <p className="text-sm text-red-600">{lookupError}</p>}
 
       <input

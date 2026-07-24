@@ -4,6 +4,12 @@ import { getUserPalette, resolvePaletteColors } from "@/lib/get-user-palette";
 
 const ENTRIES = [
   {
+    date: "2026-07-23",
+    items: [
+      "Added camera-based barcode scanning to the \"Add a book\" form — scan a book's barcode instead of typing the ISBN",
+    ],
+  },
+  {
     date: "2026-07-20",
     items: [
       "Improved ISBN lookup with a second data source for better coverage of hard-to-find editions",

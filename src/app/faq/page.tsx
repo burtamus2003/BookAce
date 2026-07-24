@@ -9,6 +9,11 @@ const FAQS = [
       'Type or scan in the ISBN and hit "Look up" — we\'ll fetch the title, author, cover, and publish date for you. You can still edit any of it, or add a book with no ISBN by filling in the fields yourself.',
   },
   {
+    question: "Barcode scanning isn't focusing on the barcode — what's wrong?",
+    answer:
+      "Scanning works best with a phone's rear camera, which autofocuses at close range. A laptop or desktop webcam is usually fixed-focus for face distance and can struggle to focus close enough to read a barcode sharply — try holding it a bit farther back, or just type the ISBN in by hand.",
+  },
+  {
     question: "What if the ISBN lookup can't find my book?",
     answer:
       "We check multiple sources, but coverage still isn't perfect, especially for older or regional editions. You can always fill in the title and author manually.",
